@@ -1,13 +1,13 @@
 package main.java;
 
 
-import main.java.mecaniqueDeJeux.RecherchePlusMoins;
+import main.java.mecaniqueDeJeux.ModeDeJeux;
 
 public class Main {
     public static void main(String[] args)
 
     {
-        RecherchePlusMoins partie = new RecherchePlusMoins();
+        new ModeDeJeux();
     }
 
 
