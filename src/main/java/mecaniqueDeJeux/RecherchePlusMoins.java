@@ -2,14 +2,15 @@ package main.java.mecaniqueDeJeux;
 
 public class RecherchePlusMoins extends Game {
 
-    public RecherchePlusMoins (){
+    public static String RecherchePlusMoinsCodeDev;
 
-        System.out.println("----------------Enregistrer le code----------------");
-        registercombinaisonsecrete(Configuration.nbcasesRech," chiffres de 0 à 9");
-        System.out.println("------------------Trouver le code------------------");
-        findcombinaisonsecrete(Configuration.nbcasesRech, Configuration.nbessaiRech," chiffres de 0 à 9");
 
+    public static void RecherchePlusMoinsCodeDef() {
+        RecherchePlusMoinsCodeDev=registercombinaisonsecrete(Configuration.nbcasesRech, " Chiffres de 0 à 9", "AvecIA");
     }
 
+    public static void RecherchePlusMoinsDef() {
+        findcombinaisonsecrete(Configuration.nbcasesRech, Configuration.nbessaiRech, " Chiffres de 0 à 9");
+    }
 
 }
