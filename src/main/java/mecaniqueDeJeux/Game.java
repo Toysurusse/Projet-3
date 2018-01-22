@@ -3,6 +3,8 @@ package main.java.mecaniqueDeJeux;
 import java.util.Scanner;
 import java.lang.*;
 
+import static main.java.mecaniqueDeJeux.IA.IACombiSecrète;
+
 /**
  * La classe game est une classe abstraite qui organise l'architecture commune des classes RecherchePlusMoins et MasterMind
  * @see RecherchePlusMoins
@@ -68,12 +70,17 @@ abstract class Game {
      */
 
 
-    protected static void registercombinaisonsecrete(int nbchar,String regle){
+    protected static String registercombinaisonsecrete(int nbchar,String regle,String IACode){
         // Initialise le jeu et demande la combinaison
-        Dialog(new String("Enregistrer"), nbchar, regle);
-        combiSecrète = Integer.parseInt(CodeString);
-        System.out.println("Combinaison enregistrée!");
-    }
+        if (IACode.length()>0){
+            CodeString = IACombiSecrète (nbchar);
+            combiSecrète = Integer.parseInt(CodeString);
+        }
+        else {
+            Dialog(new String("Enregistrer"), nbchar, regle);
+            combiSecrète = Integer.parseInt(CodeString);
+            }
+    return CodeString;}
 
     /**
      * Méthode permettant au joueur ou à l'ordinateur de rechercher la combinaison secrète
@@ -92,13 +99,19 @@ abstract class Game {
     protected static void findcombinaisonsecrete(int nbchar, int nbessai,String regle){
         // Initialise le jeu et demande la combinaison
         Dialog(new String("Trouver"), nbchar, regle);
-        nombreEssai=0;
-        while (combiSecrète != Integer.parseInt(CodeString) && nombreEssai<=nbessai){
+        nombreEssai=1;
+        while (combiSecrète != Integer.parseInt(CodeString) && nombreEssai<nbessai){
             nombreEssai=nombreEssai+1;
-            System.out.println("Presque! Il reste "+(nbessai-nombreEssai)+" essais");
+            String EssaisRestants;
+            if ((nbessai-nombreEssai+1)==1) {
+                EssaisRestants="Presque! Il reste "+(nbessai-nombreEssai+1)+" essai";
+            }
+                else {
+                EssaisRestants="Presque! Il reste "+(nbessai-nombreEssai+1)+" essais";
+            }
+            System.out.println(EssaisRestants);
             System.out.println(ControlETResultat(nbchar,regle));
         }
-
         if (combiSecrète == Integer.parseInt(CodeString)){
             System.out.println("Vous avez gagné ! Félicitation !!");
             }
