@@ -3,13 +3,13 @@ package main.java.mecaniqueDeJeux;
 import java.util.Scanner;
 import java.lang.*;
 
-import static main.java.mecaniqueDeJeux.IA.IACombiSecrète;
+import static main.java.mecaniqueDeJeux.IA.*;
 
 /**
- * La classe game est une classe abstraite qui organise l'architecture commune des classes RecherchePlusMoins et MasterMind
+ * La classe game est une classe abstraite qui organise l'architecture commune des classes de jeu RecherchePlusMoins et MasterMind
  * @see RecherchePlusMoins
  * @see MasterMind
- *
+ * @see IA
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
@@ -29,7 +29,8 @@ abstract class Game {
      * @see protected static String ControlETResultat(int nbchar)
      */
 
-    protected static int combiSecrète = 0; // Integer pour enregistrer la combinaison secrète
+    protected static String combisecrèteia = "-2"; // Integer pour enregistrer la combinaison secrète IA
+    protected static String combisecrètejoueur = "-2"; // Integer pour enregistrer la combinaison secrète Joueur
 
     /**
      * Scanner servant à enregistrer les entrées clavier de l'utilisateur
@@ -67,18 +68,19 @@ abstract class Game {
      * @see protected static void Dialog(String EnregistreTrouve,int nbchar)
      * @see Integer combiSecrète
      * @see String CodeString
+     * @see public static Arraylist IAListeCombiProp (String Histocombi)
      */
 
 
     protected static String registercombinaisonsecrete(int nbchar,String regle,String IACode){
         // Initialise le jeu et demande la combinaison
-        if (IACode.length()>0){
+        if (IACode.equals("Avec IA")||IACode.equals("Duel")){
             CodeString = IACombiSecrète (nbchar);
-            combiSecrète = Integer.parseInt(CodeString);
+            combisecrèteia = CodeString;
         }
-        else {
-            Dialog(new String("Enregistrer"), nbchar, regle);
-            combiSecrète = Integer.parseInt(CodeString);
+        if (IACode.equals("Sans IA")||IACode.equals("Duel")) {
+            Dialog(new String("Enregistrer"), nbchar, regle,0,0);
+            combisecrètejoueur = CodeString;
             }
     return CodeString;}
 
@@ -96,27 +98,34 @@ abstract class Game {
      * @see String CodeString
      */
 
-    protected static void findcombinaisonsecrete(int nbchar, int nbessai,String regle){
+    protected static void findcombinaisonsecrete(int nbchar, int nbessai,String regle, String IAfind){
         // Initialise le jeu et demande la combinaison
-        Dialog(new String("Trouver"), nbchar, regle);
+
         nombreEssai=1;
-        while (combiSecrète != Integer.parseInt(CodeString) && nombreEssai<nbessai){
-            nombreEssai=nombreEssai+1;
-            String EssaisRestants;
-            if ((nbessai-nombreEssai+1)==1) {
-                EssaisRestants="Presque! Il reste "+(nbessai-nombreEssai+1)+" essai";
-            }
-                else {
-                EssaisRestants="Presque! Il reste "+(nbessai-nombreEssai+1)+" essais";
-            }
-            System.out.println(EssaisRestants);
-            System.out.println(ControlETResultat(nbchar,regle));
+        String PropositionIA="-1";
+        CodeString="-1";
+        while (!combisecrèteia.equals(CodeString) && nombreEssai < nbessai && !combisecrètejoueur.equals(PropositionIA)) {
+        if (IAfind.equals("Avec IA")||IAfind.equals("Duel")){ //Génération de la proposition par l'IA
+                PropositionIA = IACombiProposition(nbchar, nombreEssai);
+                IAListeCombiProp(PropositionIA);
+                IAListeCombiRésult (ResultTest(combisecrètejoueur, PropositionIA));
+                System.out.println("Proposition IA : " + PropositionIA+" "+ListeResult.get(nombreEssai-1));
         }
-        if (combiSecrète == Integer.parseInt(CodeString)){
+        if (IAfind.equals("Sans IA")||IAfind.equals("Duel")) { //Génération de la proposition par le joueur
+            Dialog(new String("Trouver"), nbchar, regle,nombreEssai,nbessai);
+            }
+            nombreEssai = nombreEssai + 1;
+        }
+
+        //Fin de partie
+        if (combisecrèteia.equals(CodeString)){
             System.out.println("Vous avez gagné ! Félicitation !!");
             }
-            else {
-            System.out.println("Dommage, vous avez presque trouvé");
+            else if (combisecrètejoueur.equals(PropositionIA)) {
+            System.out.println("L'ordinateur a gagné, dommage...");
+            }
+            else{
+            System.out.println("Dommage, vous avez perdu");
         }
     }
 
@@ -137,19 +146,25 @@ abstract class Game {
      */
 
 
-    protected static void Dialog(String EnregistreTrouve,int nbchar, String regle){
+    protected static void Dialog(String EnregistreTrouve,int nbchar, String regle,int nbTestTrouver,int nbTestPrevu){
         // Initialise le jeu et demande la combinaison
-
-        System.out.println(EnregistreTrouve+" la cominaison secrète");
-        System.out.println("La combinaison doit comporter " + nbchar + regle);
-        CodeString = sc.nextLine();
-        while (IsAvaible(CodeString, nbchar) == false) {
-            System.out.println("Vous n'avez malheureusement pas inscrit une combinaison valide");
-            System.out.println("La combinaison doit comporter " + nbchar + regle);
-            CodeString = sc.nextLine();
+        if(EnregistreTrouve.equals("Enregistrer")==true) {
+            System.out.println("------------------Bonne Partie---------------------");
+            System.out.println(EnregistreTrouve + " la cominaison secrète");
+            CodeString="0";
+            while (IsAvaible(CodeString, nbchar) == false) {
+                System.out.println("La combinaison doit comporter " + nbchar + regle);
+                CodeString = sc.nextLine();
+            }
         }
         if(EnregistreTrouve.equals("Trouver")==true){
-            System.out.println(ResultTest(String.valueOf(combiSecrète),CodeString));
+                CodeString = sc.nextLine();
+                while (IsAvaible(CodeString, nbchar) == false && nbTestTrouver < nbTestPrevu) {
+                    System.out.println("La combinaison doit comporter " + nbchar + regle);
+                    CodeString = sc.nextLine();
+                }
+                System.out.println("Proposition Joueur : " + CodeString + " " + ControlETResultat(nbchar, regle));
+
         }
     }
 
@@ -167,17 +182,16 @@ abstract class Game {
      * @see Integer combiSecrète
      * @see String CodeString
      * @see Scanner sc
+     * @see public static Arraylist IAListeCombiRésult (String HistoResult)
      */
 
 
     protected static String ControlETResultat(int nbchar, String regle){
-        CodeString = sc.nextLine();
         while (IsAvaible(CodeString,nbchar) == false) {
-            System.out.println("Vous n'avez malheureusement pas inscrit une combinaison valide");
             System.out.println("La combinaison doit comporter " + nbchar + regle);
             CodeString = sc.nextLine();
         }
-        String ResultatPlusMoins =ResultTest(String.valueOf(combiSecrète),CodeString);
+        String ResultatPlusMoins =ResultTest(String.valueOf(combisecrèteia),CodeString);
         return ResultatPlusMoins;
     }
 
@@ -202,10 +216,10 @@ abstract class Game {
                 result=result+'=';
             }
             else if (chcode < chproposition){
-                result=result+'+';
+                result=result+'-';
             }
             else {
-                result=result+'-';
+                result=result+'+';
             }
         }
         return result;}
@@ -222,7 +236,6 @@ abstract class Game {
      */
 
     protected static boolean IsAvaible(String stri, int nbchar) {
-        Scanner scan = new Scanner(System.in);
         if (stri.length() == nbchar) {// Controle que la combinaison a le bon nombre de charactère
             if (Isnumeric(stri)) {//
                 return true;
