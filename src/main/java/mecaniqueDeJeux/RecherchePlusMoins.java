@@ -1,12 +1,22 @@
 package main.java.mecaniqueDeJeux;
 
-public class RecherchePlusMoins extends Game {
+/**
+ * Classe RecherchePlusMoins organisant ce mode de jeu
+ *
+ * @author Maximilien Le Boiteux
+ * @version 1.0
+ */
 
+public class RecherchePlusMoins extends Game {
+    /**
+     * Méthode organisant les paramètres du mode de jeu RecherchePlusMoins
+     */
     public RecherchePlusMoins(String rgMode) {
         super();
         this.regleMode = " Chiffres de 0 à 9";
         this.nbChar = this.configdujeux.nbcasesRech;
         this.nbTest = this.configdujeux.nbessaiRech;
+        this.mode = rgMode;
 
         while (!CodeString.equals("N")) {
             registercombinaisonsecrete();

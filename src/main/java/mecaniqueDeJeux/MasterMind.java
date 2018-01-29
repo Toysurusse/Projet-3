@@ -1,8 +1,17 @@
 package main.java.mecaniqueDeJeux;
 
+/**
+ * Classe MasterMind organisant ce mode de jeu
+ *
+ * @author Maximilien Le Boiteux
+ * @version 1.0
+ */
+
 public class MasterMind extends Game {
 
-
+    /**
+     * Méthode organisant les paramètres du mode de jeu MasterMind
+     */
     public MasterMind(String rgMode) {
         super();
         this.nbChar = this.configdujeux.nbcasesMasterM;

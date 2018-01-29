@@ -1,8 +1,7 @@
 package main.java.mecaniqueDeJeux;
 
-import main.java.Configuration;
-
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -13,24 +12,25 @@ import java.util.logging.Logger;
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
- * @see Game
- * @see IA
- * @see RecherchePlusMoins
- * @see MasterMind
  */
-
 public class ModeDeJeux {
-
-    private char rejouer = ' ';
+    /**
+     * logger organisant l'enregistrement des logs
+     */
+    private static final Logger logger = Logger.getLogger(String.valueOf(ModeDeJeux.class));
+    /**
+     * Variable de type String organisant le type de jeu
+     */
     private String TypedeJeu = "";
-
-
-
+    /**
+     * Méthode organisant le mode de jeux avant de lancer la partie de jeu
+     */
     public ModeDeJeux() {
-        String Choix = "0";
-        this.rejouer = ' ';
-        this.TypedeJeu = "";
 
+        logger.log(Level.INFO, "Initialisation du jeu");
+
+        String Choix = "0";
+        this.TypedeJeu = "";
         Scanner choixjeu = new Scanner(System.in);
         while (true) {
             System.out.println("--------------Choisissez votre jeux----------------");
