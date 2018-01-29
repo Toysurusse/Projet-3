@@ -2,12 +2,21 @@ package main.java.mecaniqueDeJeux;
 
 public class RecherchePlusMoins extends Game {
 
-    public static void RecherchePlusMoinsCodeDef(String IAOrNot) {
-        registercombinaisonsecrete(Configuration.nbcasesRech, " Chiffres de 0 à 9", IAOrNot);
-    }
+    public RecherchePlusMoins(String rgMode) {
+        super();
+        this.regleMode = " Chiffres de 0 à 9";
+        this.nbChar = this.configdujeux.nbcasesRech;
+        this.nbTest = this.configdujeux.nbessaiRech;
 
-    public static void RecherchePlusMoinsDef(String IAOrNot) {
-        findcombinaisonsecrete(Configuration.nbcasesRech, Configuration.nbessaiRech, " Chiffres de 0 à 9",IAOrNot);
+        while (!CodeString.equals("N")) {
+            registercombinaisonsecrete();
+            if (this.configdujeux.ModeDev) {
+                System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
+                System.out.println("Combinaison secrète IA : " + this.combisecreteia);
+            }
+            System.out.println("------------------Trouver le code------------------");
+            findcombinaisonsecrete();
+            Replay();
+        }
     }
-
 }

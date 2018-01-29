@@ -1,4 +1,4 @@
 package main.java.mecaniqueDeJeux;
 
-public class Joueur {
+public class Log4jClass {
 }
