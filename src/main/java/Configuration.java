@@ -38,12 +38,9 @@ public class Configuration extends LogClass {
      * Boolean configurant le jeu en mode développeur ou en mode normal
      */
     public boolean ModeDev = true;
-    /**
-     * Boolean configurant le jeu en mode développeur ou en mode normal
-     */
 
     /**
-     * Méthode paramétrant l'import du fichier de configuration config.properties
+     * Méthode paramétrant l'import du fichier de configuration config.properties et le logger log4j
      */
     public Configuration() {
         log.log(Level.INFO, "INIT Chargement classe Game");

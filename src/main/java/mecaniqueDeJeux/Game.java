@@ -110,7 +110,7 @@ abstract class Game {
                 PropositionIA = IntelArt.IACombiProposition(this.nbChar, nombreEssai, nombreChiffres);
                 IntelArt.IAListeCombiProp(PropositionIA);
                 IntelArt.IAListeCombiResult(ResultTest(combisecretejoueur, PropositionIA));
-                System.out.println("Proposition IA : " + PropositionIA + " " + InterFaceResultatIA(PropositionIA));
+                System.out.println("Proposition IA : " + PropositionIA + " -> Réponse : " + InterFaceResultatIA(PropositionIA));
             }
             if (this.mode.equals("De") || this.mode.equals("Du")) { //Génération de la proposition par le joueur
                 Dialog(new String("Trouver"));
@@ -121,8 +121,12 @@ abstract class Game {
             System.out.println("Vous avez gagné ! Félicitation !!");
         } else if (PropositionIA.equals(this.combisecretejoueur)) {
             System.out.println("L'ordinateur a gagné, dommage...");
+            System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
+            System.out.println("Combinaison secrète IA : " + this.combisecreteia);
         } else {
             System.out.println("Dommage, vous avez perdu");
+            System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
+            System.out.println("Combinaison secrète IA : " + this.combisecreteia);
         }
     }
 
@@ -159,7 +163,7 @@ abstract class Game {
                 System.out.println("La combinaison doit comporter " + this.nbChar + this.regleMode);
                 CodeString = sc.nextLine();
             }
-            System.out.println("Proposition Joueur : " + CodeString + " " + InterFaceResultatJoueur());
+            System.out.println("Proposition Joueur : " + CodeString + " -> Réponse : " + InterFaceResultatJoueur());
         }
     }
 
@@ -250,9 +254,10 @@ abstract class Game {
      */
     protected void Replay() {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode permettant de rejouer ou non");
-        while (!CodeString.equals("O") && !CodeString.equals("N")) {
+        while (!CodeString.equals("O") && !CodeString.equals("N") && !CodeString.equals("Q")) {
             System.out.println("Voulez vous rejouer ?");
             CodeString = this.sc.nextLine();
+            if (CodeString.equals("Q")) System.exit(0);
         }
     }
 }

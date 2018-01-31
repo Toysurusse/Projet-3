@@ -23,7 +23,7 @@ public class RecherchePlusMoins extends Game {
         this.nbTest = this.configdujeux.nbessaiRech;
         this.mode = rgMode;
 
-        while (!CodeString.equals("N")) {
+        while (!CodeString.equals("N")&&!CodeString.equals("Q")) {
             registercombinaisonsecrete();
             if (this.configdujeux.ModeDev) {
                 System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
