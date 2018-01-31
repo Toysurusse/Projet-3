@@ -1,5 +1,7 @@
 package main.java.mecaniqueDeJeux;
 
+import org.apache.log4j.Level;
+
 /**
  * Classe MasterMind organisant ce mode de jeu
  *
@@ -14,9 +16,10 @@ public class MasterMind extends Game {
      */
     public MasterMind(String rgMode) {
         super();
+        this.configdujeux.log.log(Level.INFO, "INIT Ouverture classe");
         this.nbChar = this.configdujeux.nbcasesMasterM;
         this.nbTest = this.configdujeux.nbcouleurMasterM;
-        this.regleMode = " Chiffres de 0 à "+this.nbTest;
+        this.regleMode = " Chiffres de 0 à " + this.nbTest;
         this.mode = rgMode;
 
         while (!CodeString.equals("N")) {

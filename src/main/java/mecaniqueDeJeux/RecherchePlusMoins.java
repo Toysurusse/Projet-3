@@ -1,5 +1,7 @@
 package main.java.mecaniqueDeJeux;
 
+import org.apache.log4j.Level;
+
 /**
  * Classe RecherchePlusMoins organisant ce mode de jeu
  *
@@ -13,6 +15,7 @@ public class RecherchePlusMoins extends Game {
      */
     public RecherchePlusMoins(String rgMode) {
         super();
+        this.configdujeux.log.log(Level.INFO, "INIT Ouverture classe");
         this.regleMode = " Chiffres de 0 à 9";
         this.nbChar = this.configdujeux.nbcasesRech;
         this.nbTest = this.configdujeux.nbessaiRech;

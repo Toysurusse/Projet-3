@@ -1,8 +1,7 @@
 package main.java.mecaniqueDeJeux;
 
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
 
 /**
  * Classe de jeux permettant de choisir les différents modes de jeux :
@@ -13,22 +12,18 @@ import java.util.logging.Logger;
  * @author Maximilien Le Boiteux
  * @version 1.0
  */
-public class ModeDeJeux {
-    /**
-     * logger organisant l'enregistrement des logs
-     */
-    private static final Logger logger = Logger.getLogger(String.valueOf(ModeDeJeux.class));
+public class ModeDeJeux extends LogClass {
+
     /**
      * Variable de type String organisant le type de jeu
      */
     private String TypedeJeu = "";
+
     /**
      * Méthode organisant le mode de jeux avant de lancer la partie de jeu
      */
     public ModeDeJeux() {
-
-        logger.log(Level.INFO, "Initialisation du jeu");
-
+        log.log(Level.INFO, "Ouverture classe");
         String Choix = "0";
         this.TypedeJeu = "";
         Scanner choixjeu = new Scanner(System.in);

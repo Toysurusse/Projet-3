@@ -1,8 +1,9 @@
 package main.java.mecaniqueDeJeux;
 
 import main.java.Configuration;
+import org.apache.log4j.Level;
+
 import java.util.Scanner;
-import java.lang.*;
 
 /**
  * La classe game est une classe abstraite qui organise l'architecture commune des classes de jeu RecherchePlusMoins et MasterMind
@@ -73,12 +74,14 @@ abstract class Game {
         this.configdujeux = cf;
         this.regleMode = "";
         this.mode = "";
+        cf.log.log(Level.INFO, "INIT Chargement classe Game");
     }
 
     /**
      * Méthode permettant d'enregistrer la combinaison secrète de l'IA ou du joueur
      */
     protected void registercombinaisonsecrete() {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode d'enregistrement de la combinaison");
         if (this.mode.equals("De") || this.mode.equals("Du")) {
             CodeString = IntelArt.Randomgen(this.nbChar);
             this.combisecreteia = CodeString;
@@ -93,6 +96,7 @@ abstract class Game {
      * Méthode permettant de trouver la combinaison secrète de l'IA ou du joueur
      */
     protected void findcombinaisonsecrete() {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode de recherche de la combinaison");
         nombreEssai = 1;
         String PropositionIA = "-1";
         CodeString = "-1";
@@ -121,6 +125,7 @@ abstract class Game {
      * Méthode permettant d'initialiser le dialogue avec le joueur et de valider que les entrées clavier sont au format demandé par les règles du jeu
      */
     protected void Dialog(String EnregistreTrouve) {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode de dialogue avec le joueur");
         if (EnregistreTrouve.equals("Enregistrer") == true) {
             System.out.println("------------------Bonne Partie---------------------");
             System.out.println(EnregistreTrouve + " la cominaison secrète");
@@ -145,6 +150,7 @@ abstract class Game {
      * et de contrôler si la combinaison est égale/inférieure ou supérieure à la combinaison secrète
      */
     protected String ControlETResultat() {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode de Contrôle de la proposition du joueur");
         while (IsAvaible(CodeString) == false) {
             System.out.println("La combinaison doit comporter " + this.nbChar + this.regleMode);
             CodeString = sc.nextLine();
@@ -161,6 +167,7 @@ abstract class Game {
      * @param proposition Définit si on "enregistre" ou si on veut "Trouver" la combianaison secrète
      */
     protected String ResultTest(String code, String proposition) {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode de comparaison entre code secret et proposition");
         // Initialise le jeu et demande la combinaison
         String result = "";
         for (int i = 0; i < code.length(); i++) {
@@ -214,6 +221,7 @@ abstract class Game {
      * @param stri String à controler (entrées clavier)
      */
     protected boolean IsAvaible(String stri) {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode de controle de la conformité de la combinaison proposée");
         if (stri.length() == this.nbChar) {// Controle que la combinaison a le bon nombre de charactère
             if (Isnumeric(stri)) {//
                 return true;
@@ -228,6 +236,7 @@ abstract class Game {
      * @param st String à contrôler (entrées clavier)
      */
     protected boolean Isnumeric(String st) {
+        this.configdujeux.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
         String chaine = st;
         for (int i = 0; i < chaine.length(); i++) {
             char s = chaine.charAt(i);
@@ -242,6 +251,7 @@ abstract class Game {
      * Méthode permettant de rejouer ou de revenir au menu principal
      */
     protected void Replay() {
+        this.configdujeux.log.log(Level.INFO, "INIT Méthode permettant de rejouer ou non");
         while (!CodeString.equals("O") && !CodeString.equals("N")) {
             System.out.println("Voulez vous rejouer ?");
             CodeString = this.sc.nextLine();

@@ -2,6 +2,12 @@ package main.java;
 
 import main.java.mecaniqueDeJeux.ModeDeJeux;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Classe principale
  *
@@ -10,6 +16,7 @@ import main.java.mecaniqueDeJeux.ModeDeJeux;
  */
 
 public class Main {
+
     /**
      * Méthode permettant de lancer le jeu
      */
