@@ -22,12 +22,12 @@ public class IA {
     /**
      * Méthode de type string permettant de proposer les combinaisons de l'IA
      */
-    public String IACombiProposition(int nbchar, int nbprop) {
+    public String IACombiProposition(int nbchar, int nbprop, int nbChiffres) {
         String CombiIAProposition = "";
         if (nbprop == 1) {
             ListeCombi.clear();
             ListeResult.clear();
-            CombiIAProposition = Randomgen(nbchar);
+            CombiIAProposition = Randomgen(nbchar, nbChiffres);
         } else {
             CombiIAProposition = IAfind(nbprop, nbchar);
         }
@@ -76,12 +76,12 @@ public class IA {
     /**
      * Générateur de combinaison aléatoire
      */
-    public String Randomgen(int nbchar) {
+    public String Randomgen(int nbchar, int nbChiffres) {
         String CombiIA = "";
         Random randomGenerator = new Random();
         int randomInt;
         for (int i = 0; i < nbchar; i++) {
-            randomInt = randomGenerator.nextInt(10);
+            randomInt = randomGenerator.nextInt(nbChiffres-1);
             CombiIA = CombiIA + Integer.toString(randomInt);
         }
         return CombiIA;

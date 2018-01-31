@@ -18,8 +18,9 @@ public class MasterMind extends Game {
         super();
         this.configdujeux.log.log(Level.INFO, "INIT Ouverture classe");
         this.nbChar = this.configdujeux.nbcasesMasterM;
-        this.nbTest = this.configdujeux.nbcouleurMasterM;
-        this.regleMode = " Chiffres de 0 à " + this.nbTest;
+        this.nbTest = this.configdujeux.nbessaiMasterM;
+        this.regleMode = " Chiffres de 0 à " + this.configdujeux.nbcouleurMasterM;
+        nombreChiffres = this.configdujeux.nbcouleurMasterM;
         this.mode = rgMode;
 
         while (!CodeString.equals("N")) {
@@ -32,5 +33,86 @@ public class MasterMind extends Game {
             findcombinaisonsecrete();
             Replay();
         }
+    }
+
+    /**
+     * Méthode permettant de Controler que caractère par caractère que la combinaison proposée est un nombre
+     *
+     * @param st String à contrôler (entrées clavier)
+     */
+    protected boolean Isnumeric(String st) {
+        this.configdujeux.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
+        String chaine = st;
+        for (int i = 0; i < chaine.length(); i++) {
+            char s = chaine.charAt(i);
+            if (Character.isDigit(s) == false) {
+                return false;
+            } else if (Character.getNumericValue(s) > this.configdujeux.nbcouleurMasterM) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected String InterFaceResultatIA(String propIA) {
+        String interFaceIA = "";
+        interFaceIA = RésultatMM(String.valueOf(combisecretejoueur), propIA);
+        return interFaceIA;
+    }
+
+
+    protected String InterFaceResultatJoueur() {
+        String interFaceJ;
+        ControlETResultat();
+        interFaceJ = RésultatMM(String.valueOf(combisecreteia), CodeString);
+        return interFaceJ;
+    }
+
+
+    private String RésultatMM(String code, String proposition) {
+        String resultMM = "";
+        int countcode = 0;
+        int countprop = 0;
+        int present = 0;
+        int bienplace = 0;
+        String bienPlace = bienplace + " bien placé , ";
+        String Present = present + " présent";
+        char chcode = code.charAt(0);
+        char chproposition = proposition.charAt(0);
+
+        for (int i = 0; i < configdujeux.nbcouleurMasterM + 1; i++) {
+            for (int j = 0; j < code.length(); j++) {
+                if (i==Character.getNumericValue(code.charAt(j))) {
+                    countcode = countcode + 1;
+                }
+                if ((char)i==Character.getNumericValue(proposition.charAt(j))) {
+                    countprop = countprop + 1;
+                }
+                //System.out.println("i="+i+" présent : "+present+" countcode : "+countcode+" countMM : "+countprop);
+            }
+            if (countprop > 0) {
+                if (countcode >= countprop) {
+                    present=present+countprop;
+                }else {
+                    present=present+countcode;
+                }
+            }
+            countcode=0;
+            countprop=0;
+            //System.out.println("------i="+i+" présent : "+present+" countcode : "+countcode+" countMM : "+countprop);
+        }
+        Present = present + " présent ";
+        for (int i = 0; i < code.length(); i++) {
+            chcode = code.charAt(i);
+            chproposition = proposition.charAt(i);
+            if (chcode == chproposition) {
+                bienplace = bienplace + 1;
+                present=present-1;
+                Present = present + " présent ";
+                bienPlace = bienplace + " bien placé, ";
+            }
+        }
+        resultMM = bienPlace + Present;
+        return resultMM;
     }
 }

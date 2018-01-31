@@ -62,6 +62,10 @@ abstract class Game {
      * Initialisation de la classe IA comptenant les dispositions de l'intelligence artificielle
      */
     protected IA IntelArt = new IA();
+    /**
+     * Initialisation de la classe IA comptenant les dispositions de l'intelligence artificielle
+     */
+    protected int nombreChiffres=9;
 
     /**
      * Méthode principale rattachant les différents paramètres nécessaires à la configuration des méthodes du jeu.
@@ -74,6 +78,7 @@ abstract class Game {
         this.configdujeux = cf;
         this.regleMode = "";
         this.mode = "";
+
         cf.log.log(Level.INFO, "INIT Chargement classe Game");
     }
 
@@ -83,7 +88,7 @@ abstract class Game {
     protected void registercombinaisonsecrete() {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode d'enregistrement de la combinaison");
         if (this.mode.equals("De") || this.mode.equals("Du")) {
-            CodeString = IntelArt.Randomgen(this.nbChar);
+            CodeString = IntelArt.Randomgen(this.nbChar,nombreChiffres);
             this.combisecreteia = CodeString;
         }
         if (this.mode.equals("Ch") || this.mode.equals("Du")) {
@@ -102,10 +107,10 @@ abstract class Game {
         CodeString = "-1";
         while (!this.combisecreteia.equals(CodeString) && nombreEssai < this.nbTest && !this.combisecretejoueur.equals(PropositionIA)) {
             if (this.mode.equals("Ch") || this.mode.equals("Du")) { //Génération de la proposition par l'IA
-                PropositionIA = IntelArt.IACombiProposition(this.nbChar, nombreEssai);
+                PropositionIA = IntelArt.IACombiProposition(this.nbChar, nombreEssai, nombreChiffres);
                 IntelArt.IAListeCombiProp(PropositionIA);
                 IntelArt.IAListeCombiResult(ResultTest(combisecretejoueur, PropositionIA));
-                System.out.println("Proposition IA : " + PropositionIA + " " + IntelArt.ListeResult.get(nombreEssai - 1));
+                System.out.println("Proposition IA : " + PropositionIA + " " + InterFaceResultatIA(PropositionIA));
             }
             if (this.mode.equals("De") || this.mode.equals("Du")) { //Génération de la proposition par le joueur
                 Dialog(new String("Trouver"));
@@ -119,6 +124,15 @@ abstract class Game {
         } else {
             System.out.println("Dommage, vous avez perdu");
         }
+    }
+
+    /**
+     * Méthode interfaçant le résultat de l'IA
+     */
+    protected String InterFaceResultatIA(String propIA) {
+        String interFaceIA = "";
+        interFaceIA = IntelArt.ListeResult.get(nombreEssai - 1);
+        return interFaceIA;
     }
 
     /**
@@ -141,8 +155,17 @@ abstract class Game {
                 System.out.println("La combinaison doit comporter " + this.nbChar + this.regleMode);
                 CodeString = sc.nextLine();
             }
-            System.out.println("Proposition Joueur : " + CodeString + " " + ControlETResultat());
+            System.out.println("Proposition Joueur : " + CodeString + " " + InterFaceResultatJoueur());
         }
+    }
+
+    /**
+     * Méthode interfaçant le résultat de l'IA
+     */
+    protected String InterFaceResultatJoueur() {
+        String interFaceJ;
+        interFaceJ = ControlETResultat();
+        return interFaceJ;
     }
 
     /**
@@ -181,37 +204,6 @@ abstract class Game {
                 result = result + "+";
             }
         }
-        String resultMM = "";
-        int present = 0;
-        int bienplace = 0;
-        int j = 0;
-        String bienPlace = bienplace + " bien placé , ";
-        String Present = present + " présent";
-
-        for (int i = 0; i < code.length(); i++) {
-            char chcode = code.charAt(i);
-            char chproposition = proposition.charAt(0);
-            while (chcode != chproposition && j < code.length()) {
-                chproposition = proposition.charAt(j);
-                if (chcode == chproposition && i == j) {
-                    bienplace = bienplace + 1;
-                    bienPlace = bienplace + " bien placé , ";
-                    j = code.length();
-                } else if (chcode == chproposition && i != j) {
-                    if (code.charAt(i) == proposition.charAt(j)) {
-                        bienplace = bienplace + 1;
-                        bienPlace = bienplace + " bien placé , ";
-                        j = code.length();
-                    } else {
-                        present = present + 1;
-                        Present = present + " présent";
-                        j = code.length();
-                    }
-                }
-                j = j + 1;
-            }
-        }
-        resultMM = bienPlace + Present;
         return result;
     }
 
