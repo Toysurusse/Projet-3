@@ -13,6 +13,7 @@ public class MasterMind extends Game {
 
     /**
      * Méthode organisant les paramètres du mode de jeu MasterMind
+     *
      * @param rgMode relaye le paramètre du jeu (Du/De/Ch)
      */
     public MasterMind(String rgMode) {
@@ -38,6 +39,8 @@ public class MasterMind extends Game {
 
     /**
      * Méthode enregistrant le résultat de l'IA du mode de jeu MasterMind après chaque proposition
+     *
+     * @param propIA est un paramètre de type String enregistrant la proposition de l'IA
      */
     protected String InterFaceResultatIA(String propIA) {
         String interFaceIA = "";

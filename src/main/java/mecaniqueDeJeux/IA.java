@@ -10,6 +10,7 @@ import java.util.Random;
  * @version 1.0
  */
 public class IA {
+
     /**
      * Arraylist enregistrant la liste des combinaisons
      */
@@ -21,6 +22,10 @@ public class IA {
 
     /**
      * Méthode de type string permettant de proposer les combinaisons de l'IA
+     *
+     * @param nbchar relaye le nombre charactère du code
+     * @param nbprop relaye le nombre d'essai possible
+     * @param nbChiffres relaye le nombre de chiffres disponibles dans la combinaison
      */
     public String IACombiProposition(int nbchar, int nbprop, int nbChiffres) {
         String CombiIAProposition = "";
@@ -51,7 +56,7 @@ public class IA {
     /**
      * Méthode de type string permettant de proposer une combinaison intelligente
      */
-    public String IAfind(int nbprop, int nbchar) {
+    private String IAfind(int nbprop, int nbchar) {
         String Propal = "";
         int calculentiercombinaison = 0;
         double calculvirgulecombinaison = 0;

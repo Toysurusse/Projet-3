@@ -21,7 +21,7 @@ abstract class Game {
     /**
      * String enregistrant la combinaison secrète du joueur
      */
-    protected String combisecretejoueur = "-2"; // Integer pour enregistrer la combinaison secrète Joueur
+    protected String combisecretejoueur ; // Integer pour enregistrer la combinaison secrète Joueur
     /**
      * Integer paramétrant le nombre de chiffres de la combinaison
      */
@@ -128,6 +128,8 @@ abstract class Game {
 
     /**
      * Méthode interfaçant le résultat de l'IA
+     *
+     * @param propIA est un paramètre de type String enregistrant la proposition de l'IA
      */
     protected String InterFaceResultatIA(String propIA) {
         String interFaceIA = "";
@@ -137,6 +139,8 @@ abstract class Game {
 
     /**
      * Méthode permettant d'initialiser le dialogue avec le joueur et de valider que les entrées clavier sont au format demandé par les règles du jeu
+     *
+     * @param EnregistreTrouve est un paramètre de type String permettant d'enregistrer ou de trouver le code
      */
     private void Dialog(String EnregistreTrouve) {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode de dialogue avec le joueur");

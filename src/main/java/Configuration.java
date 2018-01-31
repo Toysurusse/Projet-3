@@ -7,7 +7,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Fichier organisant la configuration fondamentales du jeu
+ * Fichier organisant la configuration fondamentales du jeu et du log de la classe Game
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
