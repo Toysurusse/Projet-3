@@ -1,7 +1,8 @@
 package main.java.mecaniqueDeJeux;
 
-import java.util.Scanner;
 import org.apache.log4j.Level;
+
+import java.util.Scanner;
 
 /**
  * Classe de jeux permettant de choisir les différents modes de jeux :
@@ -40,11 +41,10 @@ public class ModeDeJeux extends LogClass {
                 System.out.println("Voulez-vous jouer en mode Duel(Du), Défenseur (De), Challenger (Ch) ?");
                 Choix = choixjeu.nextLine();
             }
-            Game jeuEnCours;
             if (this.TypedeJeu.equals("R")) {
-                jeuEnCours = new RecherchePlusMoins(Choix);
+                new RecherchePlusMoins(Choix);
             } else if (this.TypedeJeu.equals("M")) {
-                jeuEnCours = new MasterMind(Choix);
+                new MasterMind(Choix);
             }
         }
     }

@@ -81,7 +81,7 @@ public class IA {
         Random randomGenerator = new Random();
         int randomInt;
         for (int i = 0; i < nbchar; i++) {
-            randomInt = randomGenerator.nextInt(nbChiffres-1);
+            randomInt = randomGenerator.nextInt(nbChiffres - 1);
             CombiIA = CombiIA + Integer.toString(randomInt);
         }
         return CombiIA;

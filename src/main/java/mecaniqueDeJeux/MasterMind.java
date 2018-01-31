@@ -13,6 +13,7 @@ public class MasterMind extends Game {
 
     /**
      * Méthode organisant les paramètres du mode de jeu MasterMind
+     * @param rgMode relaye le paramètre du jeu (Du/De/Ch)
      */
     public MasterMind(String rgMode) {
         super();
@@ -36,31 +37,17 @@ public class MasterMind extends Game {
     }
 
     /**
-     * Méthode permettant de Controler que caractère par caractère que la combinaison proposée est un nombre
-     *
-     * @param st String à contrôler (entrées clavier)
+     * Méthode enregistrant le résultat de l'IA du mode de jeu MasterMind après chaque proposition
      */
-    protected boolean Isnumeric(String st) {
-        this.configdujeux.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
-        String chaine = st;
-        for (int i = 0; i < chaine.length(); i++) {
-            char s = chaine.charAt(i);
-            if (Character.isDigit(s) == false) {
-                return false;
-            } else if (Character.getNumericValue(s) > this.configdujeux.nbcouleurMasterM) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     protected String InterFaceResultatIA(String propIA) {
         String interFaceIA = "";
         interFaceIA = RésultatMM(String.valueOf(combisecretejoueur), propIA);
         return interFaceIA;
     }
 
-
+    /**
+     * Méthode enregistrant le résultat du joueur du mode de jeu MasterMind après chaque proposition
+     */
     protected String InterFaceResultatJoueur() {
         String interFaceJ;
         ControlETResultat();
@@ -68,7 +55,12 @@ public class MasterMind extends Game {
         return interFaceJ;
     }
 
-
+    /**
+     * Méthode calculant le résultat du jeu MasterMind
+     *
+     * @param code correspondant au code à trouver
+     * @param code correspondant au code proposé
+     */
     private String RésultatMM(String code, String proposition) {
         String resultMM = "";
         int countcode = 0;

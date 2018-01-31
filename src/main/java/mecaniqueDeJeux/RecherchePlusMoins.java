@@ -12,6 +12,8 @@ import org.apache.log4j.Level;
 public class RecherchePlusMoins extends Game {
     /**
      * Méthode organisant les paramètres du mode de jeu RecherchePlusMoins
+     *
+     * @param rgMode relaye le paramètre du jeu (Du/De/Ch)
      */
     public RecherchePlusMoins(String rgMode) {
         super();

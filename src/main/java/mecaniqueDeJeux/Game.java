@@ -65,7 +65,7 @@ abstract class Game {
     /**
      * Initialisation de la classe IA comptenant les dispositions de l'intelligence artificielle
      */
-    protected int nombreChiffres=9;
+    protected int nombreChiffres = 9;
 
     /**
      * Méthode principale rattachant les différents paramètres nécessaires à la configuration des méthodes du jeu.
@@ -88,7 +88,7 @@ abstract class Game {
     protected void registercombinaisonsecrete() {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode d'enregistrement de la combinaison");
         if (this.mode.equals("De") || this.mode.equals("Du")) {
-            CodeString = IntelArt.Randomgen(this.nbChar,nombreChiffres);
+            CodeString = IntelArt.Randomgen(this.nbChar, nombreChiffres);
             this.combisecreteia = CodeString;
         }
         if (this.mode.equals("Ch") || this.mode.equals("Du")) {
@@ -138,7 +138,7 @@ abstract class Game {
     /**
      * Méthode permettant d'initialiser le dialogue avec le joueur et de valider que les entrées clavier sont au format demandé par les règles du jeu
      */
-    protected void Dialog(String EnregistreTrouve) {
+    private void Dialog(String EnregistreTrouve) {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode de dialogue avec le joueur");
         if (EnregistreTrouve.equals("Enregistrer") == true) {
             System.out.println("------------------Bonne Partie---------------------");
@@ -189,7 +189,7 @@ abstract class Game {
      * @param code        Fixe le nombre de charactère de la combinaison
      * @param proposition Définit si on "enregistre" ou si on veut "Trouver" la combianaison secrète
      */
-    protected String ResultTest(String code, String proposition) {
+    private String ResultTest(String code, String proposition) {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode de comparaison entre code secret et proposition");
         // Initialise le jeu et demande la combinaison
         String result = "";
@@ -212,7 +212,7 @@ abstract class Game {
      *
      * @param stri String à controler (entrées clavier)
      */
-    protected boolean IsAvaible(String stri) {
+    private boolean IsAvaible(String stri) {
         this.configdujeux.log.log(Level.INFO, "INIT Méthode de controle de la conformité de la combinaison proposée");
         if (stri.length() == this.nbChar) {// Controle que la combinaison a le bon nombre de charactère
             if (Isnumeric(stri)) {//
@@ -227,12 +227,14 @@ abstract class Game {
      *
      * @param st String à contrôler (entrées clavier)
      */
-    protected boolean Isnumeric(String st) {
+    private boolean Isnumeric(String st) {
         this.configdujeux.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
         String chaine = st;
         for (int i = 0; i < chaine.length(); i++) {
             char s = chaine.charAt(i);
             if (Character.isDigit(s) == false) {
+                return false;
+            } else if (Character.getNumericValue(s) > nombreChiffres) {
                 return false;
             }
         }
