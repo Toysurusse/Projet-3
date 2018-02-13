@@ -3,7 +3,7 @@ package main.java.mecaniqueDeJeux;
 import org.apache.log4j.Level;
 
 /**
- * Classe MasterMind organisant ce mode de jeu
+ * MasterMind Class to initialize this kind of Game Class
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
@@ -12,59 +12,56 @@ import org.apache.log4j.Level;
 public class MasterMind extends Game {
 
     /**
-     * Méthode organisant les paramètres du mode de jeu MasterMind
+     * Method to fix parameters of this Class
      *
-     * @param rgMode relaye le paramètre du jeu (Du/De/Ch)
+     * @param rgMode fix the kind of this game (Du/De/Ch)
      */
     public MasterMind(String rgMode) {
         super();
-        this.configdujeux.log.log(Level.INFO, "INIT Ouverture classe");
-        this.nbChar = this.configdujeux.nbcasesMasterM;
-        this.nbTest = this.configdujeux.nbessaiMasterM;
-        this.regleMode = " Chiffres de 0 à " + this.configdujeux.nbcouleurMasterM;
-        nombreChiffres = this.configdujeux.nbcouleurMasterM;
+        this.configGame.log.log(Level.INFO, "INIT Ouverture classe");
+        this.nbChar = this.configGame.nbChainMasterM;
+        this.nbTest = this.configGame.nbTestMasterM;
+        this.modeRules = " Chiffres de 0 à " + this.configGame.nbColorMasterM;
+        nbNumbers = this.configGame.nbColorMasterM;
         this.mode = rgMode;
 
-        while (!CodeString.equals("N")) {
-            registercombinaisonsecrete();
-            if (this.configdujeux.ModeDev) {
-                System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
-                System.out.println("Combinaison secrète IA : " + this.combisecreteia);
+            registerSecretCode();
+            if (this.configGame.modeDev) {
+                System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
+                System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
             }
             System.out.println("------------------Trouver le code------------------");
-            findcombinaisonsecrete();
-            Replay();
-        }
+            findSecretCode();
     }
 
     /**
-     * Méthode enregistrant le résultat de l'IA du mode de jeu MasterMind après chaque proposition
+     * Method to register and create the result of the porposal of IA
      *
-     * @param propIA est un paramètre de type String enregistrant la proposition de l'IA
+     * @param propIA is a kind of String to register the proposal of the IA
      */
-    protected String InterFaceResultatIA(String propIA) {
+    protected String interFaceResultIA(String propIA) {
         String interFaceIA = "";
-        interFaceIA = RésultatMM(String.valueOf(combisecretejoueur), propIA);
+        interFaceIA = ResultMM(String.valueOf(SecretCombiPlayer), propIA);
         return interFaceIA;
     }
 
     /**
-     * Méthode enregistrant le résultat du joueur du mode de jeu MasterMind après chaque proposition
+     * Method to register and create the result of the porposal of the player
      */
-    protected String InterFaceResultatJoueur() {
+    protected String interFaceResultPlayer() {
         String interFaceJ;
         ControlETResultat();
-        interFaceJ = RésultatMM(String.valueOf(combisecreteia), CodeString);
+        interFaceJ = ResultMM(String.valueOf(secretCombiIA), codeString);
         return interFaceJ;
     }
 
     /**
-     * Méthode calculant le résultat du jeu MasterMind
+     * Method to analyze the result of each proposal during the game
      *
-     * @param code correspondant au code à trouver
-     * @param code correspondant au code proposé
+     * @param code is the code to find
+     * @param proposition proposition of code
      */
-    private String RésultatMM(String code, String proposition) {
+    private String ResultMM(String code, String proposition) {
         String resultMM = "";
         int countcode = 0;
         int countprop = 0;
@@ -75,7 +72,7 @@ public class MasterMind extends Game {
         char chcode = code.charAt(0);
         char chproposition = proposition.charAt(0);
 
-        for (int i = 0; i < configdujeux.nbcouleurMasterM + 1; i++) {
+        for (int i = 0; i < configGame.nbColorMasterM + 1; i++) {
             for (int j = 0; j < code.length(); j++) {
                 if (i==Character.getNumericValue(code.charAt(j))) {
                     countcode = countcode + 1;
@@ -83,7 +80,6 @@ public class MasterMind extends Game {
                 if ((char)i==Character.getNumericValue(proposition.charAt(j))) {
                     countprop = countprop + 1;
                 }
-                //System.out.println("i="+i+" présent : "+present+" countcode : "+countcode+" countMM : "+countprop);
             }
             if (countprop > 0) {
                 if (countcode >= countprop) {
@@ -94,7 +90,6 @@ public class MasterMind extends Game {
             }
             countcode=0;
             countprop=0;
-            //System.out.println("------i="+i+" présent : "+present+" countcode : "+countcode+" countMM : "+countprop);
         }
         Present = present + " présent ";
         for (int i = 0; i < code.length(); i++) {

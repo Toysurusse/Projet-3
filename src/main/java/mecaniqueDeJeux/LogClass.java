@@ -1,5 +1,6 @@
 package main.java.mecaniqueDeJeux;
 
+import main.java.configuration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -11,7 +12,7 @@ import java.util.Date;
 import java.util.MissingResourceException;
 
 /**
- * Classe permettant d'enregistrer les logs et de les réorienter vers les fichiers Temp
+ * Class to register the LogClass
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
@@ -19,32 +20,34 @@ import java.util.MissingResourceException;
 public class LogClass {
 
     /**
-     * variable de type Logger permettant d'enregistrer les logs
+     * Logger to register logs
      */
     public Logger log;
 
     /**
-     * Méthode permettant d'enregistrer les logs et de les réorienter vers les fichiers Temp
+     * Method to register logs in the path src.log
      */
     public LogClass() {
         try {
             org.apache.log4j.xml.DOMConfigurator.configure("src/main/resources/log4j.xml");
-            this.log = Logger.getLogger(main.java.Configuration.class);
+            this.log = Logger.getLogger(configuration.class);
             final StringBuilder sb = new StringBuilder();
             sb.append("Fichier Jeu LOG-");
             SimpleDateFormat str = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             sb.append(str.format(new Date()));
             final File file;
             try {
-                file = File.createTempFile(sb.toString(), ".log");
-                final PrintStream printStream = new PrintStream(file);
+
+                java.io.File fichier = new java.io.File("src/log/"+str+".log");
+                fichier.createNewFile();
+                final PrintStream printStream = new PrintStream(fichier);
                 System.setErr(printStream);
                 log.log(Level.INFO, "Redirection Log vers fuchier Temp");
             } catch (IOException e) {
                 System.out.println("-------------Création du fichier log4j impossible : pas de suivi des log-------------");
             }
         } catch (final MissingResourceException x) {
-            System.out.println("-------------Configuration log4j impossible : pas de suivi des log-------------");
+            System.out.println("-------------configuration log4j impossible : pas de suivi des log-------------");
         }
     }
 }

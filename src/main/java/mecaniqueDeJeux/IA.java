@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Intellignece artificielle recherchant la combinaison secère ou créant la combinaison secrète
+ * Computer Player which register or find the code
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
@@ -12,81 +12,81 @@ import java.util.Random;
 public class IA {
 
     /**
-     * Arraylist enregistrant la liste des combinaisons
+     * Arraylist to register the list of proposals
      */
     public ArrayList<String> ListeCombi = new ArrayList<String>();
     /**
-     * Arraylist enregistrant la liste du résultat de chaque combinaison
+     * Arraylist to register the list of results for each proposals
      */
     public ArrayList<String> ListeResult = new ArrayList<String>();
 
     /**
-     * Méthode de type string permettant de proposer les combinaisons de l'IA
+     * Method return String to propose code
      *
-     * @param nbchar relaye le nombre charactère du code
-     * @param nbprop relaye le nombre d'essai possible
-     * @param nbChiffres relaye le nombre de chiffres disponibles dans la combinaison
+     * @param nbchar number of characters of the code
+     * @param nbProp number of tries
+     * @param nbNumbers fix the numbers allowed
      */
-    public String IACombiProposition(int nbchar, int nbprop, int nbChiffres) {
-        String CombiIAProposition = "";
-        if (nbprop == 1) {
+    public String iaCombiPropal(int nbchar, int nbProp, int nbNumbers) {
+        String combiIAPropal = "";
+        if (nbProp == 1) {
             ListeCombi.clear();
             ListeResult.clear();
-            CombiIAProposition = Randomgen(nbchar, nbChiffres);
+            combiIAPropal = randomGen(nbchar, nbNumbers);
         } else {
-            CombiIAProposition = IAfind(nbprop, nbchar);
+            combiIAPropal = iaFind(nbProp, nbchar);
         }
-        return CombiIAProposition;
+        return combiIAPropal;
     }
 
     /**
-     * Méthode enregistrant la liste des combinaisons proposées
+     * Method to register the list of proposal
      */
-    public void IAListeCombiProp(String historiqueCombi) {
-        ListeCombi.add(historiqueCombi);
+    public void iaCombiPropalList(String historicCombi) {
+        ListeCombi.add(historicCombi);
     }
 
     /**
-     * Méthode enregistrant la liste des résultats suite aux combinaisons proposées
+     * Méthode to register the list of results
      */
-    public void IAListeCombiResult(String historiqueResult) {
-        ListeResult.add(historiqueResult);
+    public void iaCombiResultList(String historicResult) {
+        ListeResult.add(historicResult);
     }
 
     /**
-     * Méthode de type string permettant de proposer une combinaison intelligente
+     * Méthod to find the code of the player
      */
-    private String IAfind(int nbprop, int nbchar) {
+    private String iaFind(int nbProp, int nbchar) {
         String Propal = "";
-        int calculentiercombinaison = 0;
-        double calculvirgulecombinaison = 0;
+        int combiMath = 0;
+        double calculComaCombi = 0;
         for (int i = 0; i < nbchar; i++) {
-            if (ListeResult.get(nbprop - 2).charAt(i) == '=') {
-                Propal = Propal + ListeCombi.get(nbprop - 2).charAt(i);
-            } else if (ListeResult.get(nbprop - 2).charAt(i) == '-') {
-                calculentiercombinaison = Character.getNumericValue(ListeCombi.get(nbprop - 2).charAt(i));
-                calculvirgulecombinaison = Math.round((calculentiercombinaison / 2) - 0.1);
-                calculentiercombinaison = (int) calculvirgulecombinaison;
-                Propal = Propal + calculentiercombinaison;
-            } else if (ListeResult.get(nbprop - 2).charAt(i) == '+') {
-                calculentiercombinaison = Character.getNumericValue(ListeCombi.get(nbprop - 2).charAt(i));
-                calculvirgulecombinaison = Math.round((calculentiercombinaison + 1));
-                calculentiercombinaison = (int) calculvirgulecombinaison;
-                Propal = Propal + calculentiercombinaison;
+            if (ListeResult.get(nbProp - 2).charAt(i) == '=') {
+                Propal = Propal + ListeCombi.get(nbProp - 2).charAt(i);
+            } else if (ListeResult.get(nbProp - 2).charAt(i) == '-') {
+                combiMath = Character.getNumericValue(ListeCombi.get(nbProp - 2).charAt(i));
+                calculComaCombi = Math.round((combiMath / 2) - 0.1);
+                combiMath = (int) calculComaCombi;
+                Propal = Propal + combiMath;
+            } else if (ListeResult.get(nbProp - 2).charAt(i) == '+') {
+                combiMath = Character.getNumericValue(ListeCombi.get(nbProp - 2).charAt(i));
+                calculComaCombi = Math.round((combiMath + 1));
+                combiMath = (int) calculComaCombi;
+                Propal = Propal + combiMath;
             }
         }
         return Propal;
     }
 
     /**
-     * Générateur de combinaison aléatoire
+     * Method to make a random KeyCode
      */
-    public String Randomgen(int nbchar, int nbChiffres) {
+    public String randomGen(int nbchar, int nbNumbers) {
         String CombiIA = "";
         Random randomGenerator = new Random();
         int randomInt;
         for (int i = 0; i < nbchar; i++) {
-            randomInt = randomGenerator.nextInt(nbChiffres - 1);
+            randomInt = randomGenerator.nextInt(nbNumbers - 1);
             CombiIA = CombiIA + Integer.toString(randomInt);
         }
         return CombiIA;

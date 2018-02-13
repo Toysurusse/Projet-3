@@ -1,15 +1,9 @@
 package main.java;
 
-import main.java.mecaniqueDeJeux.ModeDeJeux;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import main.java.mecaniqueDeJeux.SetTheGame;
 
 /**
- * Classe principale
+ * Principal Class
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
@@ -17,10 +11,10 @@ import java.util.Date;
 public class Main {
 
     /**
-     * Méthode permettant de lancer le jeu
+     * Method to start the game
      */
     public static void main(String[] args)
     {
-        new ModeDeJeux();
+        new SetTheGame();
     }
 }

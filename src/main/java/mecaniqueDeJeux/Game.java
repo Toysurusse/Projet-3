@@ -1,12 +1,12 @@
 package main.java.mecaniqueDeJeux;
 
-import main.java.Configuration;
+import main.java.configuration;
 import org.apache.log4j.Level;
 
 import java.util.Scanner;
 
 /**
- * La classe game est une classe abstraite qui organise l'architecture commune des classes de jeu RecherchePlusMoins et MasterMind
+ * Abstract Class which organize the game
  *
  * @author Maximilien Le Boiteux
  * @version 1.0
@@ -15,190 +15,173 @@ import java.util.Scanner;
 abstract class Game {
 
     /**
-     * String enregistrant la combinaison secrète de l'intelligence artificielle
+     * String to register the code of the IA
      */
-    protected String combisecreteia; // Integer pour enregistrer la combinaison secrète IA
+    protected String secretCombiIA; // Integer pour enregistrer la combinaison secrète IA
     /**
-     * String enregistrant la combinaison secrète du joueur
+     * String to register the code of the player
      */
-    protected String combisecretejoueur ; // Integer pour enregistrer la combinaison secrète Joueur
+    protected String SecretCombiPlayer; // Integer pour enregistrer la combinaison secrète Joueur
     /**
-     * Integer paramétrant le nombre de chiffres de la combinaison
+     * Integer to fix the number of character of the code
      */
     protected int nbChar;
     /**
-     * Integer paramétrant le nombre d'essai lors de la partie
+     * Integer to fix the number of try to find the code
      */
     protected int nbTest;
     /**
-     * String paramétrant le nombre de chiffres disponibles
+     * String to fix the number of number of each character of the code
      */
-    protected String regleMode;
+    protected String modeRules;
     /**
-     * String paramétrant le mode de jeux (Mastermind ou rechercheplumoins)
+     * String to fix the kind of game : Du/Ch/De
      */
     protected String mode;
     /**
-     * Objet configurant le jeu (ebregistré dans le path sec.java.resources.config.properties)
+     * Object to configure the game(register in the path sec.java.resources.config.properties)
      */
-    protected Configuration configdujeux;
+    protected configuration configGame;
     /**
-     * Scanner permettant les entrées clavier avec la console
+     * Scanner to communicate with the player
      */
     protected Scanner sc = new Scanner(System.in);
     /**
-     * String enregistrant les entrées clavier avec la console
+     * String to register proposals of the player
      */
-    protected String CodeString = "0"; // String pour enregistrer les entrées clavier
+    protected String codeString = "0"; // String pour enregistrer les entrées clavier
     /**
-     * String enregistrant la combinaison pour le MasterMind
+     * Integer to register the number of try of the player or of the IA
      */
-    protected String ResultMM = "";
+    protected int numberTest;
     /**
-     * Integer enregistrant le nombre d'essai lors de la partie
+     * Initialise IA class to let the computer play
      */
-    protected int nombreEssai;
+    protected IA intelArt = new IA();
     /**
-     * Initialisation de la classe IA comptenant les dispositions de l'intelligence artificielle
+     * Integer to fix the number max of each character
      */
-    protected IA IntelArt = new IA();
-    /**
-     * Initialisation de la classe IA comptenant les dispositions de l'intelligence artificielle
-     */
-    protected int nombreChiffres = 9;
+    protected int nbNumbers = 9;
 
     /**
-     * Méthode principale rattachant les différents paramètres nécessaires à la configuration des méthodes du jeu.
+     * Méthod to fix essentials parameters of the game.
      */
     public Game() {
-        Configuration cf = new Configuration();
-        this.combisecreteia = "-2";
-        this.combisecretejoueur = "-2";
+        configuration cf = new configuration();
+        this.secretCombiIA = "-2";
+        this.SecretCombiPlayer = "-2";
         this.nbTest = 0;
-        this.configdujeux = cf;
-        this.regleMode = "";
+        this.configGame = cf;
+        this.modeRules = "";
         this.mode = "";
 
         cf.log.log(Level.INFO, "INIT Chargement classe Game");
     }
 
     /**
-     * Méthode permettant d'enregistrer la combinaison secrète de l'IA ou du joueur
+     * Méthod to register the code of the IA or of the player
      */
-    protected void registercombinaisonsecrete() {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode d'enregistrement de la combinaison");
+    protected void registerSecretCode() {
+        this.configGame.log.log(Level.INFO, "INIT Méthode d'enregistrement de la combinaison");
         if (this.mode.equals("De") || this.mode.equals("Du")) {
-            CodeString = IntelArt.Randomgen(this.nbChar, nombreChiffres);
-            this.combisecreteia = CodeString;
+            codeString = intelArt.randomGen(this.nbChar, nbNumbers);
+            this.secretCombiIA = codeString;
         }
         if (this.mode.equals("Ch") || this.mode.equals("Du")) {
             Dialog(new String("Enregistrer"));
-            this.combisecretejoueur = CodeString;
+            System.out.println("Test");
+            this.SecretCombiPlayer = codeString;
         }
     }
 
     /**
-     * Méthode permettant de trouver la combinaison secrète de l'IA ou du joueur
+     * Méthod to find the code of the IA or of the player
      */
-    protected void findcombinaisonsecrete() {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode de recherche de la combinaison");
-        nombreEssai = 1;
+    protected void findSecretCode() {
+        this.configGame.log.log(Level.INFO, "INIT Méthode de recherche de la combinaison");
+        numberTest = 1;
         String PropositionIA = "-1";
-        CodeString = "-1";
-        while (!this.combisecreteia.equals(CodeString) && nombreEssai < this.nbTest && !this.combisecretejoueur.equals(PropositionIA)) {
+        codeString = "-1";
+        while (!this.secretCombiIA.equals(codeString) && numberTest < this.nbTest && !this.SecretCombiPlayer.equals(PropositionIA)) {
             if (this.mode.equals("Ch") || this.mode.equals("Du")) { //Génération de la proposition par l'IA
-                PropositionIA = IntelArt.IACombiProposition(this.nbChar, nombreEssai, nombreChiffres);
-                IntelArt.IAListeCombiProp(PropositionIA);
-                IntelArt.IAListeCombiResult(ResultTest(combisecretejoueur, PropositionIA));
-                System.out.println("Proposition IA : " + PropositionIA + " -> Réponse : " + InterFaceResultatIA(PropositionIA));
+                PropositionIA = intelArt.iaCombiPropal(this.nbChar, numberTest, nbNumbers);
+                intelArt.iaCombiPropalList(PropositionIA);
+                intelArt.iaCombiResultList(resultTest(SecretCombiPlayer, PropositionIA));
+                System.out.println("Proposition IA : " + PropositionIA + " -> Réponse : " + interFaceResultIA(PropositionIA));
             }
             if (this.mode.equals("De") || this.mode.equals("Du")) { //Génération de la proposition par le joueur
                 Dialog(new String("Trouver"));
             }
-            nombreEssai = nombreEssai + 1;
+            numberTest = numberTest + 1;
         }
-        if (CodeString.equals(this.combisecreteia)) {
+        if (codeString.equals(this.secretCombiIA)) {
             System.out.println("Vous avez gagné ! Félicitation !!");
-        } else if (PropositionIA.equals(this.combisecretejoueur)) {
+        } else if (PropositionIA.equals(this.SecretCombiPlayer)) {
             System.out.println("L'ordinateur a gagné, dommage...");
-            System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
-            System.out.println("Combinaison secrète IA : " + this.combisecreteia);
+            System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
+            System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
         } else {
             System.out.println("Dommage, vous avez perdu");
-            System.out.println("Combinaison secrète Joueur : " + this.combisecretejoueur);
-            System.out.println("Combinaison secrète IA : " + this.combisecreteia);
+            System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
+            System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
         }
     }
 
-    /**
-     * Méthode interfaçant le résultat de l'IA
-     *
-     * @param propIA est un paramètre de type String enregistrant la proposition de l'IA
-     */
-    protected String InterFaceResultatIA(String propIA) {
-        String interFaceIA = "";
-        interFaceIA = IntelArt.ListeResult.get(nombreEssai - 1);
-        return interFaceIA;
-    }
 
     /**
-     * Méthode permettant d'initialiser le dialogue avec le joueur et de valider que les entrées clavier sont au format demandé par les règles du jeu
-     *
-     * @param EnregistreTrouve est un paramètre de type String permettant d'enregistrer ou de trouver le code
+     * Méthod to adapt the result of the game search or the game MasterMind
      */
-    private void Dialog(String EnregistreTrouve) {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode de dialogue avec le joueur");
-        if (EnregistreTrouve.equals("Enregistrer") == true) {
+    protected abstract String interFaceResultIA(String propositionIA);
+
+    /**
+     * Méthod to dialog with the player
+     *
+     * @param FindRegister organize the method to register or find the code
+     */
+    private void Dialog(String FindRegister) {
+        this.configGame.log.log(Level.INFO, "INIT Méthode de dialogue avec le joueur");
+        if (FindRegister.equals("Enregistrer") == true) {
             System.out.println("------------------Bonne Partie---------------------");
-            System.out.println(EnregistreTrouve + " la cominaison secrète");
-            CodeString = "0";
-            while (IsAvaible(CodeString) == false) {
-                System.out.println("La combinaison doit comporter " + this.nbChar + this.regleMode);
-                CodeString = sc.nextLine();
+            System.out.println(FindRegister + " la cominaison secrète");
+            codeString = "-2";
+            while (isAvaible(codeString) == false) {
+                System.out.println("La combinaison doit comporter " + this.nbChar + this.modeRules);
+                codeString = sc.nextLine();
             }
         }
-        if (EnregistreTrouve.equals("Trouver") == true) {
-            CodeString = sc.nextLine();
-            while (IsAvaible(CodeString) == false && nombreEssai < this.nbTest) {
-                System.out.println("La combinaison doit comporter " + this.nbChar + this.regleMode);
-                CodeString = sc.nextLine();
+        if (FindRegister.equals("Trouver") == true) {
+            codeString = sc.nextLine();
+            while (isAvaible(codeString) == false && numberTest < this.nbTest) {
+                System.out.println("La combinaison doit comporter " + this.nbChar + this.modeRules);
+                codeString = sc.nextLine();
             }
-            System.out.println("Proposition Joueur : " + CodeString + " -> Réponse : " + InterFaceResultatJoueur());
+            System.out.println("Proposition Joueur : " + codeString + " -> Réponse : " + interFaceResultPlayer());
         }
     }
 
-    /**
-     * Méthode interfaçant le résultat de l'IA
-     */
-    protected String InterFaceResultatJoueur() {
-        String interFaceJ;
-        interFaceJ = ControlETResultat();
-        return interFaceJ;
-    }
+    protected abstract String interFaceResultPlayer();
 
     /**
-     * Méthode permettant de valider que les entrées clavier sont au format demandé par les règles du jeu
-     * et de contrôler si la combinaison est égale/inférieure ou supérieure à la combinaison secrète
+     * Method to control player proposals
      */
     protected String ControlETResultat() {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode de Contrôle de la proposition du joueur");
-        while (IsAvaible(CodeString) == false) {
-            System.out.println("La combinaison doit comporter " + this.nbChar + this.regleMode);
-            CodeString = sc.nextLine();
+        this.configGame.log.log(Level.INFO, "INIT Méthode de Contrôle de la proposition du joueur");
+        while (isAvaible(codeString) == false) {
+            System.out.println("La combinaison doit comporter " + this.nbChar + this.modeRules);
+            codeString = sc.nextLine();
         }
-        String ResultatPlusMoins = ResultTest(String.valueOf(combisecreteia), CodeString);
+        String ResultatPlusMoins = resultTest(String.valueOf(secretCombiIA), codeString);
         return ResultatPlusMoins;
     }
 
     /**
-     * Méthode permettant de comparer l'entrée clavier avec la combinaison secrète
-     * Compare si chaque élément de la combinaison est ", >, ou < à la combinaison secrète
+     * Method to compare the code to the proposal for the searchMode and the IA
      *
-     * @param code        Fixe le nombre de charactère de la combinaison
-     * @param proposition Définit si on "enregistre" ou si on veut "Trouver" la combianaison secrète
+     * @param code        Code to find
+     * @param proposition proposal of the player
      */
-    private String ResultTest(String code, String proposition) {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode de comparaison entre code secret et proposition");
+    private String resultTest(String code, String proposition) {
+        this.configGame.log.log(Level.INFO, "INIT Méthode de comparaison entre code secret et proposition");
         // Initialise le jeu et demande la combinaison
         String result = "";
         for (int i = 0; i < code.length(); i++) {
@@ -216,14 +199,14 @@ abstract class Game {
     }
 
     /**
-     * Méthode permettant de Controler que la combinaison a le bon nombre de charactère et que la combinaison proposée est un nombre
+     * Method to control the size of the proposal and if the proposal contain only numbers
      *
      * @param stri String à controler (entrées clavier)
      */
-    private boolean IsAvaible(String stri) {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode de controle de la conformité de la combinaison proposée");
+    private boolean isAvaible(String stri) {
+        this.configGame.log.log(Level.INFO, "INIT Méthode de controle de la conformité de la combinaison proposée");
         if (stri.length() == this.nbChar) {// Controle que la combinaison a le bon nombre de charactère
-            if (Isnumeric(stri)) {//
+            if (isNumeric(stri)) {//
                 return true;
             }
         }
@@ -231,33 +214,21 @@ abstract class Game {
     }
 
     /**
-     * Méthode permettant de Controler que caractère par caractère que la combinaison proposée est un nombre
+     * Method to control if each character is numeric
      *
      * @param st String à contrôler (entrées clavier)
      */
-    private boolean Isnumeric(String st) {
-        this.configdujeux.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
+    private boolean isNumeric(String st) {
+        this.configGame.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
         String chaine = st;
         for (int i = 0; i < chaine.length(); i++) {
             char s = chaine.charAt(i);
             if (Character.isDigit(s) == false) {
                 return false;
-            } else if (Character.getNumericValue(s) > nombreChiffres) {
+            } else if (Character.getNumericValue(s) > nbNumbers) {
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * Méthode permettant de rejouer ou de revenir au menu principal
-     */
-    protected void Replay() {
-        this.configdujeux.log.log(Level.INFO, "INIT Méthode permettant de rejouer ou non");
-        while (!CodeString.equals("O") && !CodeString.equals("N") && !CodeString.equals("Q")) {
-            System.out.println("Voulez vous rejouer ?");
-            CodeString = this.sc.nextLine();
-            if (CodeString.equals("Q")) System.exit(0);
-        }
     }
 }
