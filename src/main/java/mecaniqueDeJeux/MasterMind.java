@@ -25,13 +25,13 @@ public class MasterMind extends Game {
         nbNumbers = this.configGame.nbColorMasterM;
         this.mode = rgMode;
 
-            registerSecretCode();
-            if (this.configGame.modeDev) {
-                System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
-                System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
-            }
-            System.out.println("------------------Trouver le code------------------");
-            findSecretCode();
+        registerSecretCode();
+        if (this.configGame.modeDev) {
+            System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
+            System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
+        }
+        System.out.println("------------------Trouver le code------------------");
+        findSecretCode();
     }
 
     /**
@@ -58,7 +58,7 @@ public class MasterMind extends Game {
     /**
      * Method to analyze the result of each proposal during the game
      *
-     * @param code is the code to find
+     * @param code        is the code to find
      * @param proposition proposition of code
      */
     private String ResultMM(String code, String proposition) {
@@ -74,22 +74,22 @@ public class MasterMind extends Game {
 
         for (int i = 0; i < configGame.nbColorMasterM + 1; i++) {
             for (int j = 0; j < code.length(); j++) {
-                if (i==Character.getNumericValue(code.charAt(j))) {
+                if (i == Character.getNumericValue(code.charAt(j))) {
                     countcode = countcode + 1;
                 }
-                if ((char)i==Character.getNumericValue(proposition.charAt(j))) {
+                if ((char) i == Character.getNumericValue(proposition.charAt(j))) {
                     countprop = countprop + 1;
                 }
             }
             if (countprop > 0) {
                 if (countcode >= countprop) {
-                    present=present+countprop;
-                }else {
-                    present=present+countcode;
+                    present = present + countprop;
+                } else {
+                    present = present + countcode;
                 }
             }
-            countcode=0;
-            countprop=0;
+            countcode = 0;
+            countprop = 0;
         }
         Present = present + " présent ";
         for (int i = 0; i < code.length(); i++) {
@@ -97,10 +97,16 @@ public class MasterMind extends Game {
             chproposition = proposition.charAt(i);
             if (chcode == chproposition) {
                 bienplace = bienplace + 1;
-                present=present-1;
+                present = present - 1;
                 Present = present + " présent ";
                 bienPlace = bienplace + " bien placé, ";
             }
+        }
+        if (bienplace > 1) {
+            bienPlace = bienplace + " bien placés, ";
+        }
+        if (present > 1) {
+            Present = present + " présents ";
         }
         resultMM = bienPlace + Present;
         return resultMM;
