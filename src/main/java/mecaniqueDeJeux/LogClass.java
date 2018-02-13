@@ -35,14 +35,12 @@ public class LogClass {
             sb.append("Fichier Jeu LOG-");
             SimpleDateFormat str = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             sb.append(str.format(new Date()));
-            final File file;
             try {
-
-                java.io.File fichier = new java.io.File("src/log/"+str+".log");
+                java.io.File fichier = new java.io.File("src/log/"+sb+".log");
                 fichier.createNewFile();
                 final PrintStream printStream = new PrintStream(fichier);
                 System.setErr(printStream);
-                log.log(Level.INFO, "Redirection Log vers fuchier Temp");
+                log.log(Level.INFO, "Redirection Log vers fichier src/log/"+sb+".log");
             } catch (IOException e) {
                 System.out.println("-------------Création du fichier log4j impossible : pas de suivi des log-------------");
             }

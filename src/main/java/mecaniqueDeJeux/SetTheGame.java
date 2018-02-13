@@ -34,7 +34,6 @@ public class SetTheGame extends LogClass {
      * Méthod to choice the game mode
      */
     public SetTheGame() {
-        log.log(Level.INFO, "Ouverture classe");
         String Choix = "0";
         this.TypedeJeu = "";
 
