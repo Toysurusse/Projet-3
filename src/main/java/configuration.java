@@ -37,7 +37,7 @@ public class configuration extends LogClass {
     /**
      * Boolean to configure the game in devMode or not
      */
-    public boolean modeDev = true;
+    public boolean modeDev = false;
 
     /**
      * Méthod to import resources.config.properties and the logger log4j
@@ -55,5 +55,17 @@ public class configuration extends LogClass {
         } catch (final MissingResourceException x) {
             log.log(Level.ERROR, "-------------Fichier introuvable : chargement de la configuration par défaut-------------");
         }
+    }
+
+    /**
+     * Méthod to set devMode
+     */
+    public boolean modeDev() {
+        if (modeDev == true) {
+            modeDev = false;
+        } else {
+            modeDev = true;
+        }
+    return modeDev;
     }
 }

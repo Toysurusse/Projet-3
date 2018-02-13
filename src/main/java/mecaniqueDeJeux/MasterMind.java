@@ -16,9 +16,10 @@ public class MasterMind extends Game {
      *
      * @param rgMode fix the kind of this game (Du/De/Ch)
      */
-    public MasterMind(String rgMode) {
+    public MasterMind(String rgMode, boolean Dev) {
         super();
         this.configGame.log.log(Level.INFO, "INIT Ouverture classe");
+        this.configGame.modeDev=Dev;
         this.nbChar = this.configGame.nbChainMasterM;
         this.nbTest = this.configGame.nbTestMasterM;
         this.modeRules = " Chiffres de 0 à " + this.configGame.nbColorMasterM;

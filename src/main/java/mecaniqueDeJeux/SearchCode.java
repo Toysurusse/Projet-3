@@ -15,9 +15,10 @@ public class SearchCode extends Game {
      *
      * @param rgMode parameter (Du/De/Ch)
      */
-    public SearchCode(String rgMode) {
+    public SearchCode(String rgMode, boolean Dev) {
         super();
         this.configGame.log.log(Level.INFO, "INIT Ouverture classe");
+        this.configGame.modeDev=Dev;
         this.modeRules = " Chiffres de 0 à 9";
         this.nbChar = this.configGame.nbChainSearch;
         this.nbTest = this.configGame.nbTrySearch;

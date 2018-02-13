@@ -74,7 +74,6 @@ abstract class Game {
         this.configGame = cf;
         this.modeRules = "";
         this.mode = "";
-
         cf.log.log(Level.INFO, "INIT Chargement classe Game");
     }
 
@@ -89,7 +88,6 @@ abstract class Game {
         }
         if (this.mode.equals("Ch") || this.mode.equals("Du")) {
             Dialog(new String("Enregistrer"));
-            System.out.println("Test");
             this.SecretCombiPlayer = codeString;
         }
     }
