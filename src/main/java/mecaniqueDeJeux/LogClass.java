@@ -1,10 +1,9 @@
 package main.java.mecaniqueDeJeux;
 
-import main.java.configuration;
+import main.java.Configuration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
@@ -30,7 +29,7 @@ public class LogClass {
     public LogClass() {
         try {
             org.apache.log4j.xml.DOMConfigurator.configure("src/main/resources/log4j.xml");
-            this.log = Logger.getLogger(configuration.class);
+            this.log = Logger.getLogger(Configuration.class);
             final StringBuilder sb = new StringBuilder();
             sb.append("Fichier Jeu LOG-");
             SimpleDateFormat str = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -45,7 +44,7 @@ public class LogClass {
                 System.out.println("-------------Création du fichier log4j impossible : pas de suivi des log-------------");
             }
         } catch (final MissingResourceException x) {
-            System.out.println("-------------configuration log4j impossible : pas de suivi des log-------------");
+            System.out.println("-------------Configuration log4j impossible : pas de suivi des log-------------");
         }
     }
 }

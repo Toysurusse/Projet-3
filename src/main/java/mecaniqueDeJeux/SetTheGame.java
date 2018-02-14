@@ -1,6 +1,6 @@
 package main.java.mecaniqueDeJeux;
 
-import main.java.configuration;
+import main.java.Configuration;
 import org.apache.log4j.Level;
 
 import java.util.Scanner;
@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author Maximilien Le Boiteux
  * @version 1.0
  */
-public class SetTheGame extends configuration {
+public class SetTheGame extends Configuration {
 
     /**
      * String who register the kind of game

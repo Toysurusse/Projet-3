@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  * @author Maximilien Le Boiteux
  * @version 1.0
  */
-public class configuration extends LogClass {
+public class Configuration extends LogClass {
 
     /**
      * Integer to fix the size of the game from SearchCode
@@ -42,7 +42,7 @@ public class configuration extends LogClass {
     /**
      * Méthod to import resources.config.properties and the logger log4j
      */
-    public configuration() {
+    public Configuration() {
         log.log(Level.INFO, "INIT Chargement classe Game");
         try {
             ResourceBundle fichierpropriete = ResourceBundle.getBundle("main.resources.config"); // prop.properties
@@ -53,7 +53,7 @@ public class configuration extends LogClass {
             this.nbColorMasterM = Integer.parseInt(fichierpropriete.getString("Conf.MasterMindnbcouleurMasterM"));
             this.modeDev = Boolean.parseBoolean(fichierpropriete.getString("Conf.JeuxModeDev"));
         } catch (final MissingResourceException x) {
-            log.log(Level.ERROR, "-------------Fichier introuvable : chargement de la configuration par défaut-------------");
+            log.log(Level.ERROR, "-------------Fichier introuvable : chargement de la Configuration par défaut-------------");
         }
     }
 

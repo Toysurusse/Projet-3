@@ -1,6 +1,6 @@
 package main.java.mecaniqueDeJeux;
 
-import main.java.configuration;
+import main.java.Configuration;
 import org.apache.log4j.Level;
 
 import java.util.Scanner;
@@ -41,7 +41,7 @@ abstract class Game {
     /**
      * Object to configure the game(register in the path sec.java.resources.config.properties)
      */
-    protected configuration configGame;
+    protected Configuration configGame;
     /**
      * Scanner to communicate with the player
      */
@@ -67,7 +67,7 @@ abstract class Game {
      * Méthod to fix essentials parameters of the game.
      */
     public Game() {
-        configuration cf = new configuration();
+        Configuration cf = new Configuration();
         this.secretCombiIA = "-2";
         this.SecretCombiPlayer = "-2";
         this.nbTest = 0;
