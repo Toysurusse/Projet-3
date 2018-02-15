@@ -10,9 +10,9 @@ Le programme utilise apache log4j situé dans la bibliothèque src/main/lib.
 
 ## Configuration :
 
-Le jeu peut se jouer à l'aide d'un fichier .jar situé dans le dossier src/jarfile. Il convient d'exécuter le jeu via la console, de se placer dans le dossier et d'entrer l'une des commandes suivantes :
-java -jar Projet3MettezVotreLogiqueALEpreuve.jar --d   => mode développeur
-java -jar Projet3MettezVotreLogiqueALEpreuve.jar --d   => mode normal
+Le jeu peut se jouer à l'aide d'un fichier .jar situé dans le dossier src/jarfile. Il convient d'exécuter le jeu via la console, de se placer dans le dossier et d'entrer l'une des commandes suivantes :<br/>
+java -jar Projet3MettezVotreLogiqueALEpreuve.jar --d   => mode développeur<br/>
+java -jar Projet3MettezVotreLogiqueALEpreuve.jar --d   => mode normal<br/>
 
 ## Contributeur :
 
