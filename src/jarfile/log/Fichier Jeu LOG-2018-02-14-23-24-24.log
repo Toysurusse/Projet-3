@@ -1,0 +1,4 @@
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.base/java.util.Scanner.nextLine(Unknown Source)
+	at main.java.mecaniqueDeJeux.SetTheGame.<init>(SetTheGame.java:45)
+	at main.java.Main.main(Main.java:18)

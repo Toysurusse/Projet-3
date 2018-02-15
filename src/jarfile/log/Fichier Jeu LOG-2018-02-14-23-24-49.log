@@ -1,0 +1,10 @@
+INFO  Configuration - Redirection Log vers fichier src/log/Fichier Jeu LOG-2018-02-14-23-24-49.log
+INFO  Configuration - INIT Chargement classe Game
+INFO  Configuration - INIT Ouverture classe SearchCode
+INFO  Configuration - Mode de jeu = P
+INFO  Configuration - secretCombiIA = 7011SecretCombiPlayer = -2
+INFO  Configuration - Proposition Joueur : 7011 -> Réponse : ====
+INFO  Configuration - INIT Ouverture classe SearchCode
+INFO  Configuration - Mode de jeu = P
+INFO  Configuration - secretCombiIA = 6213SecretCombiPlayer = -2
+INFO  Configuration - Proposition Joueur : 6213 -> Réponse : ====
