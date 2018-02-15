@@ -1,6 +1,5 @@
 package main.java;
 
-import main.java.mecaniqueDeJeux.LogClass;
 import org.apache.log4j.Level;
 
 import java.util.MissingResourceException;
@@ -51,7 +50,6 @@ public class Configuration extends LogClass {
             this.nbChainMasterM = Integer.parseInt(fichierpropriete.getString("Conf.MasterMindnbcasesMasterM"));
             this.nbTestMasterM = Integer.parseInt(fichierpropriete.getString("Conf.MasterMindnbessaiMasterM"));
             this.nbColorMasterM = Integer.parseInt(fichierpropriete.getString("Conf.MasterMindnbcouleurMasterM"));
-            this.modeDev = Boolean.parseBoolean(fichierpropriete.getString("Conf.JeuxModeDev"));
         } catch (final MissingResourceException x) {
             log.log(Level.ERROR, "-------------Fichier introuvable : chargement de la Configuration par défaut-------------");
         }

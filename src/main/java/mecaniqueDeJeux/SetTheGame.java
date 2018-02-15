@@ -1,7 +1,7 @@
 package main.java.mecaniqueDeJeux;
 
 import main.java.Configuration;
-import org.apache.log4j.Level;
+import main.java.LogClass;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author Maximilien Le Boiteux
  * @version 1.0
  */
-public class SetTheGame extends Configuration {
+public class SetTheGame extends LogClass {
 
     /**
      * String who register the kind of game
@@ -34,32 +34,31 @@ public class SetTheGame extends Configuration {
     /**
      * Méthod to choice the game mode
      */
-    public SetTheGame() {
-        boolean dev=false;
+    public SetTheGame(String [] args) {
+        Configuration cf = new Configuration();
         String Choix = "0";
         this.TypedeJeu = "";
         while (replay.equals("N")) {
             System.out.println("--------------Choisissez votre jeux----------------");
             while (!Choix.equals("M") && !Choix.equals("R") && !Choix.equals("Q")) {
-                System.out.println("Voulez-vous jouer au MasterMind (M), à SearchCode (R) ou Quitter le jeu (Q) ?");
+                System.out.println("Voulez-vous jouer au MasterMind (M), à Recherche (R) ou Quitter le jeu (Q) ?");
                 Choix = choixjeu.nextLine();
-                if (Choix.equals("Dev")) {
-                    dev=modeDev();
-                }
+                Choix = Choix.toUpperCase();
             }
             this.TypedeJeu = Choix;
             if (Choix.equals("Q")) System.exit(0);
             System.out.println("------------Choisissez le mode de jeux-------------");
-            while (!Choix.equals("Du") && !Choix.equals("De") && !Choix.equals("Ch")) {
-                System.out.println("Voulez-vous jouer en mode Duel(Du), Défenseur (De), Challenger (Ch) ?");
+            while (!Choix.equals("D") && !Choix.equals("P") && !Choix.equals("C")) {
+                System.out.println("Voulez-vous jouer en mode Duel(D), Défenseur (P), Challenger (C) ?");
                 Choix = choixjeu.nextLine();
+                Choix = Choix.toUpperCase();
             }
             replay = "O";
             while (replay.equals("O")) {
                 if (this.TypedeJeu.equals("R")) {
-                    new SearchCode(Choix,dev);
+                    new SearchCode(Choix,args[0],cf);
                 } else if (this.TypedeJeu.equals("M")) {
-                    new MasterMind(Choix,dev);
+                    new MasterMind(Choix,args[0],cf);
                 }
                 replay();
             }
@@ -70,9 +69,10 @@ public class SetTheGame extends Configuration {
      * Méthod to replay or set the starting menu
      */
     protected void replay() {
-        log.log(Level.INFO, "INIT Méthode permettant de rejouer ou non");
         replay = "";
         while (!replay.equals("O") && !replay.equals("N") && !replay.equals("Q")) {
+            System.out.println("");
+            System.out.println("---------------------------------Jeux Terminé----------------------------------");
             System.out.println("Voulez vous rejouer (O), ou pas (N) ? Vous pouvez également quitter le jeu (Q)");
             replay = this.choixjeu.nextLine();
         }

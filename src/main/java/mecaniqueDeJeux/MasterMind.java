@@ -1,5 +1,6 @@
 package main.java.mecaniqueDeJeux;
 
+import main.java.Configuration;
 import org.apache.log4j.Level;
 
 /**
@@ -16,10 +17,13 @@ public class MasterMind extends Game {
      *
      * @param rgMode fix the kind of this game (Du/De/Ch)
      */
-    public MasterMind(String rgMode, boolean Dev) {
+    public MasterMind(String rgMode, String Dev,Configuration cf) {
         super();
-        this.configGame.log.log(Level.INFO, "INIT Ouverture classe");
-        this.configGame.modeDev=Dev;
+        this.configGame = cf;
+        this.configGame.log.log(Level.INFO, "INIT Ouverture classe MasterMind");
+        if (Dev.equals("--d")) {
+            this.configGame.modeDev=true;
+        }
         this.nbChar = this.configGame.nbChainMasterM;
         this.nbTest = this.configGame.nbTestMasterM;
         this.modeRules = " Chiffres de 0 à " + this.configGame.nbColorMasterM;

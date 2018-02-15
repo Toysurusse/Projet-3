@@ -1,5 +1,6 @@
 package main.java.mecaniqueDeJeux;
 
+import main.java.Configuration;
 import org.apache.log4j.Level;
 
 /**
@@ -15,10 +16,13 @@ public class SearchCode extends Game {
      *
      * @param rgMode parameter (Du/De/Ch)
      */
-    public SearchCode(String rgMode, boolean Dev) {
+    public SearchCode(String rgMode, String Dev,Configuration cf) {
         super();
-        this.configGame.log.log(Level.INFO, "INIT Ouverture classe");
-        this.configGame.modeDev=Dev;
+        this.configGame = cf;
+        this.configGame.log.log(Level.INFO, "INIT Ouverture classe SearchCode");
+        if (Dev.equals("--d")) {
+            this.configGame.modeDev=true;
+        }
         this.modeRules = " Chiffres de 0 à 9";
         this.nbChar = this.configGame.nbChainSearch;
         this.nbTest = this.configGame.nbTrySearch;

@@ -67,59 +67,62 @@ abstract class Game {
      * Méthod to fix essentials parameters of the game.
      */
     public Game() {
-        Configuration cf = new Configuration();
         this.secretCombiIA = "-2";
         this.SecretCombiPlayer = "-2";
         this.nbTest = 0;
-        this.configGame = cf;
         this.modeRules = "";
         this.mode = "";
-        cf.log.log(Level.INFO, "INIT Chargement classe Game");
     }
 
     /**
      * Méthod to register the code of the IA or of the player
      */
     protected void registerSecretCode() {
-        this.configGame.log.log(Level.INFO, "INIT Méthode d'enregistrement de la combinaison");
-        if (this.mode.equals("De") || this.mode.equals("Du")) {
+        if (this.mode.equals("P") || this.mode.equals("D")) {
             codeString = intelArt.randomGen(this.nbChar, nbNumbers);
             this.secretCombiIA = codeString;
         }
-        if (this.mode.equals("Ch") || this.mode.equals("Du")) {
+        if (this.mode.equals("C") || this.mode.equals("D")) {
             Dialog(new String("Enregistrer"));
             this.SecretCombiPlayer = codeString;
         }
+        this.configGame.log.log(Level.INFO, "Mode de jeu = " +this.mode);
+        this.configGame.log.log(Level.INFO, "secretCombiIA = " +this.secretCombiIA + "SecretCombiPlayer = " + this.SecretCombiPlayer);
     }
 
     /**
      * Méthod to find the code of the IA or of the player
      */
     protected void findSecretCode() {
-        this.configGame.log.log(Level.INFO, "INIT Méthode de recherche de la combinaison");
         numberTest = 1;
         String PropositionIA = "-1";
         codeString = "-1";
         while (!this.secretCombiIA.equals(codeString) && numberTest < this.nbTest && !this.SecretCombiPlayer.equals(PropositionIA)) {
-            if (this.mode.equals("Ch") || this.mode.equals("Du")) { //Génération de la proposition par l'IA
+            if (this.mode.equals("C") || this.mode.equals("D")) { //Génération de la proposition par l'IA
                 PropositionIA = intelArt.iaCombiPropal(this.nbChar, numberTest, nbNumbers);
                 intelArt.iaCombiPropalList(PropositionIA);
                 intelArt.iaCombiResultList(resultTest(SecretCombiPlayer, PropositionIA));
                 System.out.println("Proposition IA : " + PropositionIA + " -> Réponse : " + interFaceResultIA(PropositionIA));
+                this.configGame.log.log(Level.INFO, "Proposition IA : " + PropositionIA + " -> Réponse : " + interFaceResultIA(PropositionIA));
             }
-            if (this.mode.equals("De") || this.mode.equals("Du")) { //Génération de la proposition par le joueur
+            if (this.mode.equals("P") || this.mode.equals("D")) { //Génération de la proposition par le joueur
                 Dialog(new String("Trouver"));
             }
             numberTest = numberTest + 1;
         }
         if (codeString.equals(this.secretCombiIA)) {
+            System.out.println("");
             System.out.println("Vous avez gagné ! Félicitation !!");
         } else if (PropositionIA.equals(this.SecretCombiPlayer)) {
+            System.out.println("");
             System.out.println("L'ordinateur a gagné, dommage...");
+            System.out.println("");
             System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
             System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
         } else {
+            System.out.println("");
             System.out.println("Dommage, vous avez perdu");
+            System.out.println("");
             System.out.println("Combinaison secrète Joueur : " + this.SecretCombiPlayer);
             System.out.println("Combinaison secrète IA : " + this.secretCombiIA);
         }
@@ -137,23 +140,26 @@ abstract class Game {
      * @param FindRegister organize the method to register or find the code
      */
     private void Dialog(String FindRegister) {
-        this.configGame.log.log(Level.INFO, "INIT Méthode de dialogue avec le joueur");
         if (FindRegister.equals("Enregistrer") == true) {
             System.out.println("------------------Bonne Partie---------------------");
             System.out.println(FindRegister + " la cominaison secrète");
             codeString = "-2";
             while (isAvaible(codeString) == false) {
                 System.out.println("La combinaison doit comporter " + this.nbChar + this.modeRules);
+                System.out.print("Entrer votre combinaison : ");
                 codeString = sc.nextLine();
             }
         }
         if (FindRegister.equals("Trouver") == true) {
+            System.out.print("Entrer votre combinaison : ");
             codeString = sc.nextLine();
             while (isAvaible(codeString) == false && numberTest < this.nbTest) {
                 System.out.println("La combinaison doit comporter " + this.nbChar + this.modeRules);
+                System.out.print("Entrer votre proposition de code : ");
                 codeString = sc.nextLine();
             }
             System.out.println("Proposition Joueur : " + codeString + " -> Réponse : " + interFaceResultPlayer());
+            this.configGame.log.log(Level.INFO, "Proposition Joueur : " + codeString + " -> Réponse : " + interFaceResultPlayer());
         }
     }
 
@@ -163,7 +169,6 @@ abstract class Game {
      * Method to control player proposals
      */
     protected String ControlETResultat() {
-        this.configGame.log.log(Level.INFO, "INIT Méthode de Contrôle de la proposition du joueur");
         while (isAvaible(codeString) == false) {
             System.out.println("La combinaison doit comporter " + this.nbChar + this.modeRules);
             codeString = sc.nextLine();
@@ -179,7 +184,6 @@ abstract class Game {
      * @param proposition proposal of the player
      */
     private String resultTest(String code, String proposition) {
-        this.configGame.log.log(Level.INFO, "INIT Méthode de comparaison entre code secret et proposition");
         // Initialise le jeu et demande la combinaison
         String result = "";
         for (int i = 0; i < code.length(); i++) {
@@ -202,7 +206,6 @@ abstract class Game {
      * @param stri String à controler (entrées clavier)
      */
     private boolean isAvaible(String stri) {
-        this.configGame.log.log(Level.INFO, "INIT Méthode de controle de la conformité de la combinaison proposée");
         if (stri.length() == this.nbChar) {// Controle que la combinaison a le bon nombre de charactère
             if (isNumeric(stri)) {//
                 return true;
@@ -217,7 +220,6 @@ abstract class Game {
      * @param st String à contrôler (entrées clavier)
      */
     private boolean isNumeric(String st) {
-        this.configGame.log.log(Level.INFO, "INIT Contrôle du caractère numérique de la combinaison proposée");
         String chaine = st;
         for (int i = 0; i < chaine.length(); i++) {
             char s = chaine.charAt(i);
